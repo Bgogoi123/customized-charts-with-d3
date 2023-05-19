@@ -3,6 +3,7 @@ import { TBar } from "../../../types";
 import { useEffect, useState } from "react";
 import {
   calculateAveragePatientCount,
+  createLineData,
   extractDoctorIDs,
   removeUnnecessaryData,
 } from "./functions";
@@ -19,6 +20,8 @@ function Line({
   const [doctorIds, setDoctorIds] = useState<number[]>([]);
   const [formattedData, setFormattedData] = useState<TBar[]>([]);
   const [avgPatientCount, setAvgPatientCount] = useState<number[]>([]);
+  const [lineData, setLineData] = useState<[number, number][]>([]);
+  const [dataWidth, setDataWidth] = useState<number[]>([0]);
 
   useEffect(() => {
     extractDoctorIDs({
@@ -42,18 +45,29 @@ function Line({
     });
   }, [formattedData]);
 
+  useEffect(() => {
+    createLineData({
+      formattedData,
+      setDataWidth,
+      setLineData,
+      avgPatientCount,
+    });
+  }, [formattedData, avgPatientCount]);
+
   const lineGenerator = d3
     .line()
-    .x((datum) => {
-      return xScale(datum?.data?.data?.doctor_name) + datum?.width;
+    .x((datum, index) => {
+      console.log(datum[0]);
+      return xScale(datum[0]) + dataWidth[index];
     })
     .y((_, index) => {
       return yScale(avgPatientCount[index]);
-    });
+    })
+    .curve(d3.curveBumpX);
 
   return (
     <path
-      d={lineGenerator(formattedData as Iterable<[number, number]>)!}
+      d={lineGenerator(lineData)!}
       fill="none"
       stroke="purple"
       style={{ pointerEvents: "none", strokeWidth: "1" }}

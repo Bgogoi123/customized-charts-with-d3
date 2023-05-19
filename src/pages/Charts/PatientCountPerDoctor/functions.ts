@@ -63,3 +63,33 @@ export const calculateAveragePatientCount = ({
     });
   }
 };
+
+export const createLineData = ({
+  formattedData,
+  setDataWidth,
+  setLineData,
+  avgPatientCount,
+}: {
+  formattedData: TBar[];
+  setLineData: (value: React.SetStateAction<[number, number][]>) => void;
+  setDataWidth: (value: React.SetStateAction<number[]>) => void;
+  avgPatientCount: number[];
+}) => {
+  if (formattedData.length > 0) {
+    setLineData([]);
+    setDataWidth([]);
+    formattedData.forEach((datum, index) => {
+      setLineData((prev) => {
+        let temp = [
+          ...prev,
+          [datum?.data?.data?.doctor_name, avgPatientCount[index]],
+        ];
+        return temp as [number, number][];
+      });
+      setDataWidth((prev) => {
+        let temp = [...prev, datum.width];
+        return temp;
+      });
+    });
+  }
+};

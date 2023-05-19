@@ -225,6 +225,7 @@ function PatientCountPerDoctor() {
           "bars",
           ScatterCircle as unknown as BarCustomLayer<BarDatum>,
           Line as unknown as BarCustomLayer<BarDatum>,
+          "legends",
         ]}
       />
     </div>
