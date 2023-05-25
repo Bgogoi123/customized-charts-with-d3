@@ -8,13 +8,19 @@ import {
 import ScatterCircle from "./ScatterCircle";
 import Line from "./Line";
 
+export const CHART_WIDTH = 600;
+export const CHART_HEIGHT = 400;
+
 function PatientCountPerDoctor() {
   const [patientDataPerDoctor, setPatientDataPerDoctor] = useState<
     TPatientDoctorDetails[]
   >(PATIENT_COUNT_PER_DOCTOR);
 
   return (
-    <div id="barchart" style={{ width: "600px", height: "400px" }}>
+    <div
+      id="barchart"
+      style={{ width: `${CHART_WIDTH}px`, height: `${CHART_HEIGHT}px` }}
+    >
       <ResponsiveBar
         data={NIVO_BARCHART_DATA}
         keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
