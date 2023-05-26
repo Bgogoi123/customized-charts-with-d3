@@ -7,7 +7,7 @@ export const PATIENT_COUNT_PER_DOCTOR = [
     week_one: 120,
     week_two: 80,
     week_three: 20,
-    week_four: 300,
+    week_four: 110,
   },
   {
     doctor_id: 1012,
