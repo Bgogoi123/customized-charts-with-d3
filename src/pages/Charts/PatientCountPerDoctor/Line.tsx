@@ -25,11 +25,12 @@ function Line({
   const [dataWidth, setDataWidth] = useState<number[]>([0]);
   const [redefinedPathDirection, setRedefinedPathDirection] =
     useState<string>("");
+  const [endingPath, setEndingPath] = useState<string>("");
 
   const lineGenerator = d3
     .line()
     .x((datum, index) => {
-      return xScale(datum[0]) + dataWidth[index];
+      return xScale(datum[0]) + dataWidth[index] + 20;
     })
     .y((_, index) => {
       return yScale(avgPatientCount[index]);
@@ -80,21 +81,73 @@ function Line({
       const lastElems = pathDir[1].split(",");
       const lastElemX = lastElems[lastElems.length - 2];
       const lastElemY = lastElems[lastElems.length - 1];
-      const lastDir = `,M${lastElemX},${lastElemY},${CHART_WIDTH - 200},${
-        CHART_HEIGHT - 100
-      }`;
-      let newDir = first + pathDir[1] + lastDir;
+
+      let newDir = first + pathDir[1];
       setRedefinedPathDirection(newDir);
+      // setEndingPath(
+      //   `M${lastElemX},${lastElemY}
+      //   C${lastElemX},${parseInt(lastElemY) + 10},
+      //   ${lastElemX},${parseInt(lastElemY) + 100},
+      //   ${CHART_WIDTH - 200},${CHART_HEIGHT - 100}`
+      // );
+
+      // setEndingPath("M307.75,144 C350,150 400,250 420,300");
+      // M lX,lY
+      // C lX+40, lY+6
+      // WIDTH, (lY+6)+100
+      // WIDTH+20, HEIGHT
+
+      // last working code:
+      // setEndingPath(`
+      // M${lastElemX},${lastElemY}C${parseInt(lastElemX) + 40},${
+      //   parseInt(lastElemY) + 6
+      // },${CHART_WIDTH - 200},${parseInt(lastElemY) + 6 + 100},${
+      //   CHART_WIDTH - 200
+      // },${CHART_HEIGHT - 100}`);
+
+      // experimenting:
+      const x2 = (
+        parseInt(lastElemX) +
+        (CHART_WIDTH - 200 - parseInt(lastElemX)) / 3
+      ).toFixed(2);
+      const y2 = (
+        parseInt(lastElemY) +
+        (CHART_HEIGHT - 100 - parseInt(lastElemY)) / 3
+      ).toFixed(2);
+      const x3 = (
+        parseInt(lastElemX) +
+        (2 * (CHART_WIDTH - 200 - parseInt(lastElemX))) / 3
+      ).toFixed(2);
+      const y3 = (
+        parseInt(lastElemY) +
+        (2 * (CHART_HEIGHT - 100 - parseInt(lastElemY))) / 3
+      ).toFixed(2);
+
+      // console.log(x2, y2, x3, y3);
+
+      setEndingPath(
+        `M${lastElemX},${lastElemY},C${x2},${y2},${x3},${y3},${
+          CHART_WIDTH - 200
+        },${CHART_HEIGHT - 100}`
+      );
     }
   }
 
   return (
-    <path
-      d={redefinedPathDirection}
-      fill="none"
-      stroke="purple"
-      style={{ pointerEvents: "none", strokeWidth: "1" }}
-    />
+    <>
+      <path
+        d={redefinedPathDirection}
+        fill="none"
+        stroke="purple"
+        style={{ pointerEvents: "none", strokeWidth: "1" }}
+      />
+      <path
+        d={endingPath}
+        fill="none"
+        stroke="purple"
+        style={{ pointerEvents: "none", strokeWidth: "1" }}
+      />
+    </>
   );
 }
 

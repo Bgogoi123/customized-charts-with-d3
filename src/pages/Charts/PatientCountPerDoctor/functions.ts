@@ -79,6 +79,7 @@ export const createLineData = ({
     setLineData([]);
     setDataWidth([]);
     formattedData.forEach((datum, index) => {
+      console.log(index, datum);
       setLineData((prev) => {
         let temp = [
           ...prev,
