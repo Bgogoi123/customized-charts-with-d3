@@ -5,16 +5,16 @@ import {
   NIVO_BARCHART_DATA,
   PATIENT_COUNT_PER_DOCTOR,
 } from "../../../utils/data";
-import ScatterCircle from "./ScatterCircle";
 import Line from "./Line";
+import ScatterCircle from "./ScatterCircle";
 
 export const CHART_WIDTH = 600;
 export const CHART_HEIGHT = 400;
 
 function PatientCountPerDoctor() {
-  const [patientDataPerDoctor, setPatientDataPerDoctor] = useState<
-    TPatientDoctorDetails[]
-  >(PATIENT_COUNT_PER_DOCTOR);
+  const [patientDataPerDoctor, _] = useState<TPatientDoctorDetails[]>(
+    PATIENT_COUNT_PER_DOCTOR
+  );
 
   return (
     <div
@@ -133,27 +133,7 @@ function PatientCountPerDoctor() {
         groupMode="grouped"
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
-        colors={{ scheme: "nivo" }}
-        defs={[
-          {
-            id: "dots",
-            type: "patternDots",
-            background: "inherit",
-            color: "orange",
-            size: 4,
-            padding: 1,
-            stagger: true,
-          },
-          {
-            id: "lines",
-            type: "patternLines",
-            background: "inherit",
-            color: "#eed312",
-            rotation: -45,
-            lineWidth: 6,
-            spacing: 10,
-          },
-        ]}
+        colors={{ scheme: "purpleRed_green" }}
         fill={[
           {
             match: {

@@ -42,7 +42,7 @@ type TBarsNestedData = TPatientDoctorDetails;
 type TBarsData = {
   data: TBarsNestedData;
   formattedValue: string;
-  hidden: false;
+  hidden: boolean;
   id: string;
   index: number;
   indexValue: string;
