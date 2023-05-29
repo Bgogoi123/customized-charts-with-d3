@@ -3,18 +3,12 @@ import { TBar } from "../../../types";
 import {
   calculateAveragePatientCount,
   extractDoctorIDs,
-  removeUnnecessaryData,
+  formatLineData,
 } from "./functions";
+import { CHART_WIDTH } from ".";
+import { TLineCircleProps } from "../../../types/props";
 
-const ScatterCircle = ({
-  bars,
-  xScale,
-  yScale,
-}: {
-  bars: TBar[];
-  xScale: any;
-  yScale: any;
-}) => {
+const ScatterCircle = ({ bars, xScale, yScale }: TLineCircleProps) => {
   const [doctorIds, setDoctorIds] = useState<number[]>([]);
   const [formattedData, setFormattedData] = useState<TBar[]>([]);
   const [avgPatientCount, setAvgPatientCount] = useState<number[]>([]);
@@ -27,7 +21,7 @@ const ScatterCircle = ({
   }, [bars]);
 
   useEffect(() => {
-    removeUnnecessaryData({
+    formatLineData({
       doctorIds,
       bars,
       setFormattedData,
@@ -43,18 +37,27 @@ const ScatterCircle = ({
 
   return (
     <>
-      {formattedData.map((bar: TBar, index) => (
-        <circle
-          id={`dot_${index}`}
-          key={`point-${bar.x}`}
-          cx={xScale(bar.data.data.doctor_name) + bar.width + 20}
-          cy={yScale(avgPatientCount[index])}
-          r={3}
-          fill="black"
-          stroke="black"
-          style={{ pointerEvents: "none" }}
-        />
-      ))}
+      {formattedData.map((bar: TBar, index) => {
+        const cx = xScale(bar.data.data.doctor_name) + bar.width + 20;
+        return (
+          <circle
+            id={`dot_${index}`}
+            key={`point-${bar.x}`}
+            cx={
+              isNaN(cx) && index === 0
+                ? 0
+                : isNaN(cx) && index === formattedData.length - 1
+                ? CHART_WIDTH - 200
+                : cx
+            }
+            cy={yScale(avgPatientCount[index])}
+            r={3}
+            fill="black"
+            stroke="black"
+            style={{ pointerEvents: "none" }}
+          />
+        );
+      })}
     </>
   );
 };
