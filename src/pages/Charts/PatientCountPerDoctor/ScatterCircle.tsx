@@ -47,7 +47,7 @@ const ScatterCircle = ({
         <circle
           id={`dot_${index}`}
           key={`point-${bar.x}`}
-          cx={xScale(bar.data.data.doctor_name) + bar.width}
+          cx={xScale(bar.data.data.doctor_name) + bar.width + 20}
           cy={yScale(avgPatientCount[index])}
           r={3}
           fill="black"
