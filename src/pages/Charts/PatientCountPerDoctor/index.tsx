@@ -20,11 +20,33 @@ function PatientCountPerDoctor() {
   const selectedDocs = 3;
 
   const CustomBorder = ({ bars }: { bars: TBar[] }) => {
-    const iteration = bars.length / selectedDocs;
+    // code for vertically stacked bars:
+    // return bars.map((bar) => {
+    //   const { data, x, y, width, height } = bar;
 
-    return bars.map((bar, index) => {
+    //   return (
+    //     <g key={bar.key}>
+    //       {Object.keys(data).map((key, index) => (
+    //         <rect
+    //           key={key}
+    //           x={x}
+    //           y={y + index * (height / Object.keys(data).length)}
+    //           width={width}
+    //           height={height / Object.keys(data).length}
+    //           fill="none"
+    //           stroke={bordercolors[index]}
+    //           // fill={bordercolors[index]} // Use the same colors as defined in MyBarChart component
+    //           // stroke="#000000" // Customize the border color as needed
+    //           strokeWidth={1} // Customize the border width as needed
+    //         />
+    //       ))}
+    //     </g>
+    //   );
+    // });
+
+    const iteration = bars.length / selectedDocs;
+    return bars.map((bar) => {
       for (let i = 0; i < iteration; i++) {
-        // console.log(i, index, bordercolors[i], iteration);
         return (
           <>
             <line
@@ -204,16 +226,7 @@ function PatientCountPerDoctor() {
             id: "lines",
           },
         ]}
-        // colors={{ scheme: "purpleRed_green" }}
         colors={["#EAFFEA", "#FFFAEA", "#FCFFD4", "#FDEAFF"]}
-        // borderWidth={2}
-        // borderColor={{
-        //   from: "color",
-        //   modifiers: [
-        //     ["darker", 2],
-        //     ["opacity", 4],
-        //   ],
-        // }}
         axisTop={null}
         axisRight={null}
         axisBottom={{
