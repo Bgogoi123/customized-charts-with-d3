@@ -6,7 +6,7 @@ function App() {
   const queryClient = new QueryClient();
 
   const apolloClient = new ApolloClient({
-    uri: "http://127.0.0.1:5174/",
+    uri: import.meta.env.BASE_URL,
     cache: new InMemoryCache(),
   });
 

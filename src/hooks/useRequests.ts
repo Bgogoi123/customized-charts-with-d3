@@ -1,11 +1,11 @@
 import { gql } from "@apollo/client";
 import { useQuery } from "react-query";
 import { GraphQLClient } from "graphql-request";
-import { TPatientDoctorDetails } from "../types";
+import { TPatientDoctorDetails, TSimpleChartData } from "../types";
+
+const graphQLClient = new GraphQLClient(import.meta.env.BASE_URL);
 
 export function useGetPatientCount() {
-  const graphQLClient = new GraphQLClient("http://127.0.0.1:5174/");
-
   return useQuery("get-patient-count", async () => {
     const { patientCountData }: { patientCountData: TPatientDoctorDetails[] } =
       await graphQLClient.request(gql`
@@ -23,5 +23,29 @@ export function useGetPatientCount() {
         }
       `);
     return patientCountData;
+  });
+}
+
+export function useGetSimpleChartData() {
+  return useQuery("get-simple-chart-data", async () => {
+    const { chartData }: { chartData: TSimpleChartData } =
+      await graphQLClient.request(gql`
+        query GetSimpleChartData {
+          chartData {
+            country
+            burger
+            burgerColor
+            sandwich
+            sandwichColor
+            kebab
+            kebabColor
+            fries
+            friesColor
+            donut
+            donutColor
+          }
+        }
+      `);
+    return chartData;
   });
 }

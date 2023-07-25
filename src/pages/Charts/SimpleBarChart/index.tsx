@@ -1,46 +1,18 @@
-import { useEffect, useState } from "react";
-import { CHART_HEIGHT, CHART_WIDTH } from "../../../utils/constants";
-import { TSimpleChartData } from "../../../types";
-import { gql, useQuery } from "@apollo/client";
+import { BarDatum, ResponsiveBar } from "@nivo/bar";
 import Loader from "../../../components/Loader";
-import { ResponsiveBar } from "@nivo/bar";
+import { useGetSimpleChartData } from "../../../hooks/useRequests";
+import { CHART_HEIGHT, CHART_WIDTH } from "../../../utils/constants";
 
 const SimpleBarChart = () => {
-  const [simpleChartData, setSimpleChartData] = useState<TSimpleChartData>([]);
-
-  const simpleChartQuery = gql`
-    query GetSimpleChartData {
-      chartData {
-        country
-        burger
-        burgerColor
-        sandwich
-        sandwichColor
-        kebab
-        kebabColor
-        fries
-        friesColor
-        donut
-        donutColor
-      }
-    }
-  `;
-
-  const { data, loading } = useQuery(simpleChartQuery);
-
-  useEffect(() => {
-    if (data?.chartData?.length > 0) {
-      setSimpleChartData(data?.chartData);
-    }
-  }, [data]);
+  const { data, isLoading } = useGetSimpleChartData();
 
   return (
     <div style={{ width: `${CHART_WIDTH}px`, height: `${CHART_HEIGHT}px` }}>
-      {loading ? (
+      {isLoading ? (
         <Loader type="text" textContent="Loading Simple Chart..." />
       ) : (
         <ResponsiveBar
-          data={simpleChartData}
+          data={data as BarDatum[]}
           keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
           indexBy="country"
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
