@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import Charts from "./pages/Charts";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <QueryClientProvider client={queryClient}>
         <Charts />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ApolloProvider>
   );
