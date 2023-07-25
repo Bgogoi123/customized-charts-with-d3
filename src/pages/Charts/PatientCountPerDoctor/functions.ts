@@ -1,4 +1,3 @@
-import { CHART_WIDTH } from ".";
 import { TBar, TPatientDoctorDetails } from "../../../types";
 import {
   TCalculateAveragePatientCount,
@@ -6,6 +5,7 @@ import {
   TExtractDoctorIDProps,
   TFormatLineDataProps,
 } from "../../../types/props";
+import { CHART_WIDTH } from "../../../utils/constants";
 
 export const extractDoctorIDs = ({
   bars,
