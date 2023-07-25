@@ -5,8 +5,8 @@ import {
   extractDoctorIDs,
   formatLineData,
 } from "./functions";
-import { CHART_WIDTH } from ".";
 import { TLineCircleProps } from "../../../types/props";
+import { CHART_WIDTH } from "../../../utils/constants";
 
 const ScatterCircle = ({ bars, xScale, yScale }: TLineCircleProps) => {
   const [doctorIds, setDoctorIds] = useState<number[]>([]);

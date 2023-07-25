@@ -1,10 +1,21 @@
-import PatientCountPerDoctor from "./pages/Charts/PatientCountPerDoctor";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Charts from "./pages/Charts";
 
 function App() {
+  const queryClient = new QueryClient();
+
+  const apolloClient = new ApolloClient({
+    uri: import.meta.env.BASE_URL,
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div>
-      <PatientCountPerDoctor />
-    </div>
+    <ApolloProvider client={apolloClient}>
+      <QueryClientProvider client={queryClient}>
+        <Charts />
+      </QueryClientProvider>
+    </ApolloProvider>
   );
 }
 

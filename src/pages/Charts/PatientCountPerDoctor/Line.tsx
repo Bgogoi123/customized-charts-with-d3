@@ -1,6 +1,5 @@
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
-import { CHART_WIDTH } from ".";
 import { TBar } from "../../../types";
 import { TLineCircleProps } from "../../../types/props";
 import {
@@ -9,6 +8,7 @@ import {
   extractDoctorIDs,
   formatLineData,
 } from "./functions";
+import { CHART_WIDTH } from "../../../utils/constants";
 
 function Line({ bars, xScale, yScale }: TLineCircleProps) {
   const [doctorIds, setDoctorIds] = useState<number[]>([]);
