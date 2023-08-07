@@ -6,10 +6,20 @@ import { CustomBorder } from "./CustomBorder";
 import Line from "./Line";
 import ScatterCircle from "./ScatterCircle";
 import Error from "../../../components/Error";
+// import { executeQuery } from "../../../utils/queryFunction";
+// import { patientCountQuery } from "../../../graphql/patienCountQueries";
 
 function PatientCountPerDoctor() {
   // hooks
+  // const patientCountData = executeQuery(
+  //   patientCountQuery.key,
+  //   patientCountQuery.query
+  // );
+
+  // console.log("patientCountData: ", patientCountData.data);
+
   const { data, isLoading } = useGetPatientCount();
+  console.log("data: ", data);
 
   return (
     <div

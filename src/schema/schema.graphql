@@ -1,0 +1,29 @@
+type GetPatientCountData {
+  doctor_id: Int!
+  doctor_name: String!
+  doctor_email: String!
+  doctor_phone: Int!
+  week_one: Int!
+  week_two: Int!
+  week_three: Int!
+  week_four: Int!
+}
+
+type GetSimpleChartData {
+  country: String!
+  burger: Int!
+  burgerColor: String!
+  sandwich: Int!
+  sandwichColor: String!
+  kebab: Int!
+  kebabColor: String!
+  fries: Int!
+  friesColor: String!
+  donut: Int!
+  donutColor: String!
+}
+
+type Query {
+  patientCountData: [GetPatientCountData!]!
+  chartData: [GetSimpleChartData!]!
+}
