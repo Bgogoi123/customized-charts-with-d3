@@ -18,4 +18,6 @@
 - D3.js
 - GraphQL
 
+## 🚀 Live Demo
 
+[Check out the live version here.](https://customized-charts-with-d3.netlify.app/)
